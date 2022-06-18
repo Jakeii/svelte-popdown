@@ -35,7 +35,7 @@ export function calcTranslateY(
   } else if (position.indexOf('below') > -1) {
     return `calc(${Math.floor(triggerBottom - offsetTop)}px)`;
   } else if (position.indexOf('middle') > -1) {
-    return `calc(${Math.floor(triggerTop - offsetTop)}px - 50% + ${triggerHeight}px)`;
+    return `calc(${Math.floor(triggerTop - offsetTop)}px - 50% + ${triggerHeight /2}px)`;
   } else if (position.indexOf('bottom') > -1) {
   // below is default
     return `calc(${Math.floor(triggerBottom - offsetTop)}px - 100%)`;

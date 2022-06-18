@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createDropdownTransformStyleStore } from '../stores/popdown';
-	import Portal from 'svelte-portal';
+	import { portal } from 'svelte-portal';
 	import { type Writable, writable, derived } from 'svelte/store';
 
 	export let dropdownClass = '';
@@ -12,6 +12,10 @@
 	let trigger: Writable<HTMLElement> = writable();
 	let windowSize: Writable<number[]> = writable();
 	let dropdown: Writable<HTMLElement> = writable();
+
+	const bindTrigger = (el: HTMLElement) => {
+		$trigger = el.firstChild instanceof HTMLElement ? el.firstChild : el;
+	};
 
 	// traverses trigger ancestors to find a scrollable element, otherwise use document.scrollingElement
 	const scrollParent = derived(trigger, ($trigger: HTMLElement) => {
@@ -48,28 +52,29 @@
 	on:resize={(e) => ($windowSize = [e.currentTarget.innerWidth, e.currentTarget.innerHeight])}
 />
 
-<div class="trigger" bind:this={$trigger}>
+<div class="trigger" use:bindTrigger>
 	<slot name="trigger" />
 </div>
 
-<Portal target={target || $scrollParent}>
-	<div
-		class="dropdown {dropdownClass}"
-		bind:this={$dropdown}
-		style:transform={$dropdownTransformStyle}
-	>
-		<slot name="content" />
-	</div>
-</Portal>
+<div
+	class="dropdown {dropdownClass}"
+	bind:this={$dropdown}
+	style:transform={$dropdownTransformStyle}
+	use:portal={target || $scrollParent}
+	hidden
+>
+	<slot name="content" />
+</div>
 
 <style>
-	/* .trigger {
-		position: relative;
+	/* .trigger { */
+	/* display: inline-flex; */
+	/* position: relative;
 		cursor: pointer;
 		display: flex;
 		height: 100%;
-		align-items: center;
-	} */
+		align-items: center; */
+	/* } */
 
 	.dropdown {
 		position: absolute;

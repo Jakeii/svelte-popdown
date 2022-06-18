@@ -18,49 +18,57 @@ Popover options:
 
 ## Examples
 
-dropdown:
+#### Dropdown
 
-```md
+```html
   <script>
     import Popdown from 'svelte-popdown';
-    let isOpen = false;
+    let clickDropdownVisible = false;
+
+	const onClickOutside = (e: MouseEvent) => {
+		const target = e.target as HTMLElement;
+		if (!target.closest('.dropdown') && !target.closest('.trigger')) {
+			clickDropdownVisible = false;
+		}
+	};
   </script>
-  <Popdown position="bottom left">
+
+  <svelte:body on:click={onClickOutside} />
+  <Popdown position="below middle">
     <svelte:fragment slot="trigger">
-      <div class="link trigger" on:click={() => isOpen = true}>
-        Open the dropdown
-      </div>
+      <button on:click={() => (clickDropdownVisible = !clickDropdownVisible)}>click me</button>
     </svelte:fragment>
-    {#if isOpen}
-      <svelte:fragment slot="content">
-        <ul>
-          <li>One</li>
-          <li>Two</li>
-          <li>Three</li>
-        </ul>
-      </svelte:fragment>
+    <svelte:fragment slot="content">
+    {#if clickDropdownVisible}
+      <div class="dropdown" transition:fade>dropdown</div>
     {/if}
+    </svelte:fragment>
   </Popdown>
 ```
 
-popover
+#### Popover
 
-```md
+```html
   <script>
-    let isOpen = false;
+    import Popdown from 'svelte-popdown';
+	let hoverDropdownVisible = false;
   </script>
-  <Popdown position="right">
-    <svelte:fragment slot="trigger">
-      <div class="link trigger" on:mouseover={() => isOpen = true} on:mouseout={() => isOpen = false}>
-        Confusing UX
-      </div>
-    </svelte:fragment>
-    {#if isOpen}
-    <svelte:fragment slot="content">
-      Description of UX
-    </svelte:fragment>
-    {/if}
-  </Popdown>
+  <Popdown position="outer-right middle">
+	<button
+		on:mouseover={() => (hoverDropdownVisible = true)}
+		on:focus={() => (hoverDropdownVisible = true)}
+		on:mouseout={() => (hoverDropdownVisible = false)}
+		on:blur={() => (hoverDropdownVisible = false)}
+		slot="trigger"
+	>
+		hover me
+	</button>
+	<svelte:fragment slot="content">
+		{#if hoverDropdownVisible}
+			<div class="dropdown" transition:fade>dropdown</div>
+		{/if}
+	</svelte:fragment>
+</Popdown>
 ```
 
 ## Developing
