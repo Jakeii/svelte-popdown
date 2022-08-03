@@ -1,10 +1,10 @@
-import { derived, type Readable } from 'svelte/store';
+import { derived, type Readable, type Writable } from 'svelte/store';
 import { calcTranslateX, calcTranslateY } from '../util/popdown-translate';
 
 export const createDropdownTransformStyleStore = (
   windowSize: Readable<number[]>,
   scrollParent: Readable<HTMLElement>,
-  trigger: Readable<HTMLElement>,
+  trigger: Writable<HTMLElement>,
   calcLeft: (triggerPosition: number) => number,
   calcTop: (triggerPosition: number) => number,
   position: string,

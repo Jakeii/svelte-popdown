@@ -6,7 +6,7 @@
 	const horizontalOptions = ['outer-left', 'inner-left', 'center', 'inner-right', 'outer-right'];
 	const verticalOptions = ['above', 'top', 'bottom', 'below', 'middle'];
 
-	let overflow = false;
+	let overflow = true;
 	let clickDropdownVisible = false;
 	let hoverDropdownVisible = false;
 

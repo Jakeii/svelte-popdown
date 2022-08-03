@@ -4,11 +4,23 @@
 	export let vertical: string;
 	export let dropdownSize: string;
 	export let overflow: boolean;
+
+	let containerEl: HTMLElement;
+
+	const isHTMLElement = (el: Element): el is HTMLElement => el instanceof HTMLElement;
 </script>
 
-<div class="container" class:overflow>
+<div class="container" bind:this={containerEl} class:overflow>
 	<div class="popdown" class:overflow>
-		<Popdown position="${horizontal} {vertical}" dropdownClass="dropdown {dropdownSize}">
+		<Popdown
+			position="${horizontal} {vertical}"
+			dropdownClass="dropdown {dropdownSize}"
+			target={overflow
+				? containerEl
+				: isHTMLElement(document.scrollingElement)
+				? document.scrollingElement
+				: undefined}
+		>
 			<svelte:fragment slot="trigger">{horizontal} {vertical} Trigger</svelte:fragment>
 			<svelte:fragment slot="content"
 				>{horizontal}
@@ -26,7 +38,6 @@
 		flex: 0 0 500px;
 
 		&.overflow {
-			overflow: hidden;
 			overflow: scroll;
 		}
 
@@ -46,20 +57,18 @@
 		background-color: rgb(141, 179, 170);
 	}
 
-	:global {
-		.dropdown {
-			border: 1px solid #000;
-			background-color: rgb(120, 139, 204);
+	:global(.dropdown) {
+		border: 1px solid #000;
+		background-color: rgb(120, 139, 204);
 
-			&.small {
-				width: 50px;
-				height: 50px;
-			}
+		&:global(.small) {
+			width: 50px;
+			height: 50px;
+		}
 
-			&.big {
-				width: 150px;
-				height: 150px;
-			}
+		&:global(.big) {
+			width: 150px;
+			height: 150px;
 		}
 	}
 </style>

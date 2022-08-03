@@ -12,7 +12,7 @@ Popover options:
 
 - `position` string Where to position the popdown relative to the trigger e.g. inner/outer-top/left/right/bottom or middle default is "inner-left outer-bottom"
 - `dropdownClass` string class for the dropdown element
-- `target` optional target element if you want the popover in a specific parent element, default behavior is to find the closest scrollable element
+- `target` optional target element if you want the popover in a specific parent element, default is `document.scrollingElement`
 - `calcX` optional - provide your own logic to calculate the X translation
 - `calcY` optional - provide your own logic to calculate the Y translation
 

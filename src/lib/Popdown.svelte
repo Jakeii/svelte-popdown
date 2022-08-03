@@ -1,11 +1,13 @@
 <script lang="ts">
-	import { createDropdownTransformStyleStore } from '../stores/popdown';
+	import { createDropdownTransformStyleStore } from './stores/popdown';
 	import { portal } from 'svelte-portal';
 	import { type Writable, writable, derived } from 'svelte/store';
+	import { browser } from '$app/env';
 
 	export let dropdownClass = '';
 	export let position = 'outer-bottom inner-left';
-	export let target: string | HTMLElement = null;
+	export let target: string | HTMLElement =
+		browser && document.scrollingElement instanceof HTMLElement ? document.scrollingElement : null;
 	export let calcLeft: null | ((triggerLeft: number) => number) = null;
 	export let calcTop: null | ((triggerTop: number) => number) = null;
 
@@ -17,30 +19,14 @@
 		$trigger = el.firstChild instanceof HTMLElement ? el.firstChild : el;
 	};
 
-	// traverses trigger ancestors to find a scrollable element, otherwise use document.scrollingElement
-	const scrollParent = derived(trigger, ($trigger: HTMLElement) => {
-		if ($trigger) {
-			let style = window.getComputedStyle($trigger);
-			const excludeStaticParent = style.position === 'absolute';
-			const overflowRegex = /(auto|scroll)/;
+	let targetElement: Writable<HTMLElement> = writable();
 
-			if (style.position === 'fixed') return document.body;
-			for (let parent: HTMLElement | null = $trigger; (parent = parent.parentElement); ) {
-				style = window.getComputedStyle(parent);
-				if (excludeStaticParent && style.position === 'static') {
-					continue;
-				}
-				if (overflowRegex.test(style.overflow + style.overflowY + style.overflowX)) {
-					return parent;
-				}
-			}
-			return document.scrollingElement as HTMLElement;
-		}
-		return;
-	});
+	$: browser &&
+		targetElement.set(target instanceof HTMLElement ? target : document.querySelector(target));
+
 	const dropdownTransformStyle = createDropdownTransformStyleStore(
 		windowSize,
-		scrollParent,
+		targetElement,
 		trigger,
 		calcLeft,
 		calcTop,
@@ -56,15 +42,17 @@
 	<slot name="trigger" />
 </div>
 
-<div
-	class="dropdown {dropdownClass}"
-	bind:this={$dropdown}
-	style:transform={$dropdownTransformStyle}
-	use:portal={target || $scrollParent}
-	hidden
->
-	<slot name="content" />
-</div>
+{#if target}
+	<div
+		class="dropdown {dropdownClass}"
+		bind:this={$dropdown}
+		style:transform={$dropdownTransformStyle}
+		use:portal={target}
+		hidden
+	>
+		<slot name="content" />
+	</div>
+{/if}
 
 <style>
 	/* .trigger { */
