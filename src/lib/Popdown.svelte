@@ -41,7 +41,7 @@
     trigger,
     calcLeft,
     calcTop,
-    position
+    position,
   );
 </script>
 

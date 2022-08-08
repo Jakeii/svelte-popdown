@@ -1,4 +1,3 @@
-
 export function calcTranslateX(
   position: string,
   triggerRight: number,
@@ -6,7 +5,6 @@ export function calcTranslateX(
   offsetLeft: number,
   triggerWidth: number,
 ) {
-
   if (position.indexOf('inner-right') > -1) {
     return `calc(${Math.floor(triggerRight - offsetLeft)}px - 100%)`;
   } else if (position.indexOf('outer-right') > -1) {
@@ -17,7 +15,7 @@ export function calcTranslateX(
     return `calc(${Math.floor(triggerLeft - offsetLeft)}px - 50% + ${triggerWidth / 2}px)`;
   } else {
     // inner-left is default
-    return `${Math.floor(triggerLeft- offsetLeft)}px`;
+    return `${Math.floor(triggerLeft - offsetLeft)}px`;
   }
 }
 
@@ -35,9 +33,9 @@ export function calcTranslateY(
   } else if (position.indexOf('below') > -1) {
     return `calc(${Math.floor(triggerBottom - offsetTop)}px)`;
   } else if (position.indexOf('middle') > -1) {
-    return `calc(${Math.floor(triggerTop - offsetTop)}px - 50% + ${triggerHeight /2}px)`;
+    return `calc(${Math.floor(triggerTop - offsetTop)}px - 50% + ${triggerHeight / 2}px)`;
   } else {
-  // below is default
+    // below is default
     return `calc(${Math.floor(triggerBottom - offsetTop)}px - 100%)`;
   }
 }

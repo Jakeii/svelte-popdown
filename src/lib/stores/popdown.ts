@@ -42,9 +42,9 @@ export const createContentTransformStyleStore = (
   );
 
   return derived(
-    [ windowSize, trigger, ancestorOffset ],
+    [windowSize, trigger, ancestorOffset],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ([ _windowSize, $trigger, $ancestorOffset ]) => {
+    ([_windowSize, $trigger, $ancestorOffset]) => {
       let translateX = '';
       let translateY = '';
       if ($trigger) {
