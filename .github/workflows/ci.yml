@@ -25,6 +25,9 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
+      - name: Lint
+        run: yarn lint
+
       - name: Package module
         run: yarn package
 

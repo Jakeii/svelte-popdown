@@ -1,79 +1,69 @@
 <script lang="ts">
-	import Popdown from '$lib/Popdown.svelte';
-	import PositionExample from '$lib/PositionExample.svelte';
-	import { fade } from 'svelte/transition';
+  import Popdown from '$lib/Popdown.svelte';
+  import PositionExample from '../components/PositionExample.svelte';
+  import { fade } from 'svelte/transition';
 
-	const horizontalOptions = ['outer-left', 'inner-left', 'center', 'inner-right', 'outer-right'];
-	const verticalOptions = ['above', 'top', 'bottom', 'below', 'middle'];
+  const horizontalOptions = ['outer-left', 'inner-left', 'center', 'inner-right', 'outer-right'];
+  const verticalOptions = ['above', 'top', 'bottom', 'below', 'middle'];
 
-	let overflow = true;
-	let clickDropdownVisible = false;
-	let hoverDropdownVisible = false;
+  let overflow = true;
+  let clickContentVisible = false;
+  let hoverContentVisible = false;
 
-	const onClickOutside = (e: MouseEvent) => {
-		const target = e.target as HTMLElement;
-		if (!target.closest('.dropdown') && !target.closest('.trigger')) {
-			clickDropdownVisible = false;
-		}
-	};
+  const onClickOutside = (e: MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest('.content') && !target.closest('.trigger')) {
+      clickContentVisible = false;
+    }
+  };
 </script>
 
 <svelte:body on:click={onClickOutside} />
 
 <h1>Popdown Demo</h1>
-<h2>Onclick dropdown:</h2>
+<h2>Onclick content:</h2>
 <div>
-	<Popdown position="below middle" showContent={clickDropdownVisible}>
-		<svelte:fragment slot="trigger">
-			<button on:click={() => (clickDropdownVisible = !clickDropdownVisible)}>click me</button>
-		</svelte:fragment>
-		<svelte:fragment slot="content">
-			<div class="dropdown" transition:fade>dropdown</div>
-		</svelte:fragment>
-	</Popdown>
+  <Popdown position="below center" showContent={clickContentVisible}>
+    <svelte:fragment slot="trigger">
+      <button on:click={() => (clickContentVisible = !clickContentVisible)}>click me</button>
+    </svelte:fragment>
+    <svelte:fragment slot="content">
+      <div class="content" transition:fade>content</div>
+    </svelte:fragment>
+  </Popdown>
 </div>
 <h2>onhover popover</h2>
-<Popdown position="outer-right middle" showContent={hoverDropdownVisible}>
-	<button
-		on:mouseover={() => (hoverDropdownVisible = true)}
-		on:focus={() => (hoverDropdownVisible = true)}
-		on:mouseout={() => (hoverDropdownVisible = false)}
-		on:blur={() => (hoverDropdownVisible = false)}
-		slot="trigger"
-	>
-		hover me
-	</button>
-	<svelte:fragment slot="content">
-		<div class="dropdown" transition:fade>dropdown</div>
-	</svelte:fragment>
+<Popdown position="outer-right center" showContent={hoverContentVisible}>
+  <button
+    on:mouseover={() => (hoverContentVisible = true)}
+    on:focus={() => (hoverContentVisible = true)}
+    on:mouseout={() => (hoverContentVisible = false)}
+    on:blur={() => (hoverContentVisible = false)}
+    slot="trigger"
+  >
+    hover me
+  </button>
+  <svelte:fragment slot="content">
+    <div class="content" transition:fade>content</div>
+  </svelte:fragment>
 </Popdown>
 <h2>Positioning:</h2>
 <label>
-	<input type="checkbox" bind:checked={overflow} />
-	container is scrollable
+  <input type="checkbox" bind:checked={overflow} />
+  container is scrollable
 </label>
 <div class="postion-examples">
-	{#each horizontalOptions as horizontalOption}
-		{#each verticalOptions as verticalOption}
-			<PositionExample
-				horizontal={horizontalOption}
-				vertical={verticalOption}
-				dropdownSize="small"
-				{overflow}
-			/>
-			<PositionExample
-				horizontal={horizontalOption}
-				vertical={verticalOption}
-				dropdownSize="big"
-				{overflow}
-			/>
-		{/each}
-	{/each}
+  {#each horizontalOptions as horizontalOption}
+    {#each verticalOptions as verticalOption}
+      <PositionExample horizontal={horizontalOption} vertical={verticalOption} contentSize="small" {overflow} />
+      <PositionExample horizontal={horizontalOption} vertical={verticalOption} contentSize="big" {overflow} />
+    {/each}
+  {/each}
 </div>
 
 <style>
-	.postion-examples {
-		display: flex;
-		flex-wrap: wrap;
-	}
+  .postion-examples {
+    display: flex;
+    flex-wrap: wrap;
+  }
 </style>

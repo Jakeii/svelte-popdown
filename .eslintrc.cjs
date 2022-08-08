@@ -51,5 +51,6 @@ module.exports = {
     'comma-dangle': [ 'error', 'always-multiline' ],
     'no-trailing-spaces': [ 'error' ],
     'semi': [ 'error' ],
+    'no-undef': 'error',
   }
 };

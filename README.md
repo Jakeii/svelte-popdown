@@ -1,8 +1,8 @@
 # Svelte Popdown
 
-Ultra minimal popover/dropdown component
+Ultra minimal popover/content component
 
-Generate a popover/dropdown in the body element so it's above all other elements, but positioned next to another element (like the element where it was triggered), powered by `svelte-portal`, inspired by `ember-basic-dropdown`.
+Generate a popover/content in the body element so it's above all other elements, but positioned next to another element (like the element where it was triggered), powered by `svelte-portal`, inspired by `ember-basic-content`.
 
 This purely does the positioning logic, no styling, no opening/closing logic, see example below on how to do that.
 
@@ -11,7 +11,7 @@ This purely does the positioning logic, no styling, no opening/closing logic, se
 Popover options:
 
 - `position` string Where to position the popdown relative to the trigger e.g. inner/outer-top/left/right/bottom or middle default is "inner-left outer-bottom"
-- `dropdownClass` string class for the dropdown element
+- `contentClass` string class for the content element
 - `target` optional target element if you want the popover in a specific parent element, default is `document.scrollingElement`
 - `showContent` show the content slot, default is `false`
 - `calcX` optional - provide your own logic to calculate the X translation
@@ -19,25 +19,25 @@ Popover options:
 
 ## Examples
 
-#### Dropdown
+#### Content
 
 ```html
   <script>
     import Popdown from 'svelte-popdown';
-    let clickDropdownVisible = false;
+    let clickContentVisible = false;
 
 	const onClickOutside = (e: MouseEvent) => {
 		const target = e.target as HTMLElement;
-		if (!target.closest('.dropdown') && !target.closest('.trigger')) {
-			clickDropdownVisible = false;
+		if (!target.closest('.content') && !target.closest('.trigger')) {
+			clickContentVisible = false;
 		}
 	};
   </script>
 
   <svelte:body on:click={onClickOutside} />
-  <Popdown position="below middle" showContent={clickDropdownVisible}>
-    <button slot="trigger" on:click={() => (clickDropdownVisible = !clickDropdownVisible)}>click me</button>
-    <div class="dropdown" slot="content" transition:fade>dropdown</div>
+  <Popdown position="below middle" showContent={clickContentVisible}>
+    <button slot="trigger" on:click={() => (clickContentVisible = !clickContentVisible)}>click me</button>
+    <div class="content" slot="content" transition:fade>content</div>
   </Popdown>
 ```
 
@@ -46,19 +46,19 @@ Popover options:
 ```html
   <script>
     import Popdown from 'svelte-popdown';
-	let hoverDropdownVisible = false;
+	let hoverContentVisible = false;
   </script>
-  <Popdown position="outer-right middle" showContent={hoverDropdownVisible}>
+  <Popdown position="outer-right middle" showContent={hoverContentVisible}>
 	<button
-		on:mouseover={() => (hoverDropdownVisible = true)}
-		on:focus={() => (hoverDropdownVisible = true)}
-		on:mouseout={() => (hoverDropdownVisible = false)}
-		on:blur={() => (hoverDropdownVisible = false)}
+		on:mouseover={() => (hoverContentVisible = true)}
+		on:focus={() => (hoverContentVisible = true)}
+		on:mouseout={() => (hoverContentVisible = false)}
+		on:blur={() => (hoverContentVisible = false)}
 		slot="trigger"
 	>
 		hover me
 	</button>
-	<div class="dropdown" slot="content" transition:fade>dropdown</div>
+	<div class="content" slot="content" transition:fade>content</div>
 </Popdown>
 ```
 
