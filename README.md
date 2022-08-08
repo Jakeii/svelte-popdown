@@ -1,8 +1,8 @@
 # Svelte Popdown
 
-Ultra minimal popover/content component
+Ultra minimal popover/dropdown component
 
-Generate a popover/content in the body element so it's above all other elements, but positioned next to another element (like the element where it was triggered), powered by `svelte-portal`, inspired by `ember-basic-content`.
+Generate a popover/dropdown in the body element so it's above all other elements, but positioned next to another element (like the element where it was triggered), powered by `svelte-portal`, inspired by `ember-basic-dropdown`.
 
 This purely does the positioning logic, no styling, no opening/closing logic, see example below on how to do that.
 
@@ -10,7 +10,7 @@ This purely does the positioning logic, no styling, no opening/closing logic, se
 
 Popover options:
 
-- `position` string Where to position the popdown relative to the trigger e.g. inner/outer-top/left/right/bottom or middle default is "inner-left outer-bottom"
+- `position` string Where to position the popdown relative to the trigger e.g. (inner|outer)-(top|left|right|bottom) or center (horizontal)/middle (vertical) default is "inner-left outer-bottom"
 - `contentClass` string class for the content element
 - `target` optional target element if you want the popover in a specific parent element, default is `document.scrollingElement`
 - `showContent` show the content slot, default is `false`

@@ -40,7 +40,7 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
-      - name: Package module
+      - name: Build site
         run: yarn build
         
       - name: Upload artifact
