@@ -2,6 +2,7 @@
   import Popdown from '$lib/Popdown.svelte';
   import PositionExample from '../components/PositionExample.svelte';
   import { fade } from 'svelte/transition';
+  import { onClickOutside } from '$lib/util/on-click-outside';
 
   const horizontalOptions = ['outer-left', 'inner-left', 'center', 'inner-right', 'outer-right'];
   const verticalOptions = ['above', 'top', 'bottom', 'below', 'middle'];
@@ -9,23 +10,17 @@
   let overflow = true;
   let clickContentVisible = false;
   let hoverContentVisible = false;
-
-  const onClickOutside = (e: MouseEvent) => {
-    const target = e.target as HTMLElement;
-    if (!target.closest('.content') && !target.closest('.trigger')) {
-      clickContentVisible = false;
-    }
-  };
 </script>
-
-<svelte:body on:click={onClickOutside} />
 
 <h1>Popdown Demo</h1>
 <h2>Onclick content:</h2>
 <div>
   <Popdown position="below center" showContent={clickContentVisible}>
     <svelte:fragment slot="trigger">
-      <button on:click={() => (clickContentVisible = !clickContentVisible)}>click me</button>
+      <button
+        on:click={() => (clickContentVisible = !clickContentVisible)}
+        use:onClickOutside={() => (clickContentVisible = false)}>click me</button
+      >
     </svelte:fragment>
     <svelte:fragment slot="content">
       <div class="content" transition:fade>content</div>

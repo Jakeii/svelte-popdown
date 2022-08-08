@@ -23,20 +23,18 @@ Popover options:
 
 ```html
   <script>
-    import Popdown from 'svelte-popdown';
+    import Popdown, { onClickOutside } from 'svelte-popdown';
     let clickContentVisible = false;
 
-	const onClickOutside = (e: MouseEvent) => {
-		const target = e.target as HTMLElement;
-		if (!target.closest('.content') && !target.closest('.trigger')) {
-			clickContentVisible = false;
-		}
-	};
   </script>
-
-  <svelte:body on:click={onClickOutside} />
   <Popdown position="below middle" showContent={clickContentVisible}>
-    <button slot="trigger" on:click={() => (clickContentVisible = !clickContentVisible)}>click me</button>
+    <button
+      slot="trigger"
+      on:click={() => (clickContentVisible = !clickContentVisible)}
+      use:onClickOutside={() => (clickContentVisible = false)}
+    >
+      click me
+    </button>
     <div class="content" slot="content" transition:fade>content</div>
   </Popdown>
 ```

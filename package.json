@@ -36,6 +36,7 @@
     "vite": "^3.0.0"
   },
   "type": "module",
+  "main": "./index.js",
   "release": {
     "branches": [
       "main"
