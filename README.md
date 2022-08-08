@@ -6,6 +6,8 @@ Generate a popover/dropdown in the body element so it's above all other elements
 
 This purely does the positioning logic, no styling, no opening/closing logic, see example below on how to do that.
 
+Demo: https://jakeii.github.io/svelte-popdown/
+
 ## Usage
 
 Popover options:

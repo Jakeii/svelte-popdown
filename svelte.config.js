@@ -8,6 +8,9 @@ const config = {
   preprocess: preprocess(),
 
   kit: {
+    paths: {
+      base: '/svelte-popdown',
+    },
     prerender: {
       default: true,
     },
