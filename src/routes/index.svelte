@@ -23,19 +23,17 @@
 <h1>Popdown Demo</h1>
 <h2>Onclick dropdown:</h2>
 <div>
-	<Popdown position="below middle">
+	<Popdown position="below middle" showContent={clickDropdownVisible}>
 		<svelte:fragment slot="trigger">
 			<button on:click={() => (clickDropdownVisible = !clickDropdownVisible)}>click me</button>
 		</svelte:fragment>
 		<svelte:fragment slot="content">
-			{#if clickDropdownVisible}
-				<div class="dropdown" transition:fade>dropdown</div>
-			{/if}
+			<div class="dropdown" transition:fade>dropdown</div>
 		</svelte:fragment>
 	</Popdown>
 </div>
 <h2>onhover popover</h2>
-<Popdown position="outer-right middle">
+<Popdown position="outer-right middle" showContent={hoverDropdownVisible}>
 	<button
 		on:mouseover={() => (hoverDropdownVisible = true)}
 		on:focus={() => (hoverDropdownVisible = true)}
@@ -46,9 +44,7 @@
 		hover me
 	</button>
 	<svelte:fragment slot="content">
-		{#if hoverDropdownVisible}
-			<div class="dropdown" transition:fade>dropdown</div>
-		{/if}
+		<div class="dropdown" transition:fade>dropdown</div>
 	</svelte:fragment>
 </Popdown>
 <h2>Positioning:</h2>

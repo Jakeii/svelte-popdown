@@ -13,6 +13,7 @@ Popover options:
 - `position` string Where to position the popdown relative to the trigger e.g. inner/outer-top/left/right/bottom or middle default is "inner-left outer-bottom"
 - `dropdownClass` string class for the dropdown element
 - `target` optional target element if you want the popover in a specific parent element, default is `document.scrollingElement`
+- `showContent` show the content slot, default is `false`
 - `calcX` optional - provide your own logic to calculate the X translation
 - `calcY` optional - provide your own logic to calculate the Y translation
 
@@ -34,15 +35,9 @@ Popover options:
   </script>
 
   <svelte:body on:click={onClickOutside} />
-  <Popdown position="below middle">
-    <svelte:fragment slot="trigger">
-      <button on:click={() => (clickDropdownVisible = !clickDropdownVisible)}>click me</button>
-    </svelte:fragment>
-    <svelte:fragment slot="content">
-    {#if clickDropdownVisible}
-      <div class="dropdown" transition:fade>dropdown</div>
-    {/if}
-    </svelte:fragment>
+  <Popdown position="below middle" showContent={clickDropdownVisible}>
+    <button slot="trigger" on:click={() => (clickDropdownVisible = !clickDropdownVisible)}>click me</button>
+    <div class="dropdown" slot="content" transition:fade>dropdown</div>
   </Popdown>
 ```
 
@@ -53,7 +48,7 @@ Popover options:
     import Popdown from 'svelte-popdown';
 	let hoverDropdownVisible = false;
   </script>
-  <Popdown position="outer-right middle">
+  <Popdown position="outer-right middle" showContent={hoverDropdownVisible}>
 	<button
 		on:mouseover={() => (hoverDropdownVisible = true)}
 		on:focus={() => (hoverDropdownVisible = true)}
@@ -63,11 +58,7 @@ Popover options:
 	>
 		hover me
 	</button>
-	<svelte:fragment slot="content">
-		{#if hoverDropdownVisible}
-			<div class="dropdown" transition:fade>dropdown</div>
-		{/if}
-	</svelte:fragment>
+	<div class="dropdown" slot="content" transition:fade>dropdown</div>
 </Popdown>
 ```
 

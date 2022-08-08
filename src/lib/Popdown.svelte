@@ -8,6 +8,7 @@
 	export let position = 'outer-bottom inner-left';
 	export let target: string | HTMLElement =
 		browser && document.scrollingElement instanceof HTMLElement ? document.scrollingElement : null;
+	export let showContent = false;
 	export let calcLeft: null | ((triggerLeft: number) => number) = null;
 	export let calcTop: null | ((triggerTop: number) => number) = null;
 
@@ -42,7 +43,7 @@
 	<slot name="trigger" />
 </div>
 
-{#if target}
+{#if target && showContent}
 	<div
 		class="dropdown {dropdownClass}"
 		bind:this={$dropdown}

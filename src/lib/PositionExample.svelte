@@ -7,7 +7,7 @@
 
 	let containerEl: HTMLElement;
 
-	const isHTMLElement = (el: Element): el is HTMLElement => el instanceof HTMLElement;
+	const isHTMLElement = (el: Element | null): el is HTMLElement => el instanceof HTMLElement;
 </script>
 
 <div class="container" bind:this={containerEl} class:overflow>
@@ -15,6 +15,7 @@
 		<Popdown
 			position="${horizontal} {vertical}"
 			dropdownClass="dropdown {dropdownSize}"
+			showContent={true}
 			target={overflow
 				? containerEl
 				: isHTMLElement(document.scrollingElement)
