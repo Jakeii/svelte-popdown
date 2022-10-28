@@ -3,9 +3,11 @@
   import { portal } from 'svelte-portal';
   import { type Writable, writable } from 'svelte/store';
 
+  const isBrowser = !import.meta.env.SSR;
+
   export let contentClass = '';
   export let position = 'outer-bottom inner-left';
-  export let target: string | HTMLElement = document ? (document.scrollingElement as HTMLElement) : 'body';
+  export let target: string | HTMLElement = isBrowser ? (document.scrollingElement as HTMLElement) : 'body';
   export let showContent = false;
   export let calcLeft: null | CalcPosition = null;
   export let calcTop: null | CalcPosition = null;
@@ -21,13 +23,13 @@
   let targetElement: Writable<HTMLElement> = writable();
 
   const updateTargetElement = (target: string | HTMLElement): void => {
-    if (document && typeof target === 'string') {
+    if (isBrowser && typeof target === 'string') {
       const query = document.querySelector<HTMLElement>(target);
       if (!query) {
         throw new Error(`Could not find target element: ${target}`);
       }
       $targetElement = query;
-    } else if (document && target instanceof HTMLElement) {
+    } else if (isBrowser && target instanceof HTMLElement) {
       $targetElement = target;
     }
   };
