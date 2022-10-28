@@ -2,7 +2,7 @@
   import { createContentTransformStyleStore, type CalcPosition } from './stores/popdown';
   import { portal } from 'svelte-portal';
   import { type Writable, writable } from 'svelte/store';
-  import { browser } from '$app/env';
+  import { browser } from '$app/environment';
 
   export let contentClass = '';
   export let position = 'outer-bottom inner-left';

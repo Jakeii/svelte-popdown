@@ -11,9 +11,6 @@ const config = {
     paths: {
       base: '/svelte-popdown',
     },
-    prerender: {
-      default: true,
-    },
     adapter: adapter(),
   },
 };
