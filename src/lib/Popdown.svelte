@@ -2,11 +2,10 @@
   import { createContentTransformStyleStore, type CalcPosition } from './stores/popdown';
   import { portal } from 'svelte-portal';
   import { type Writable, writable } from 'svelte/store';
-  import { browser } from '$app/environment';
 
   export let contentClass = '';
   export let position = 'outer-bottom inner-left';
-  export let target: string | HTMLElement = browser ? (document.scrollingElement as HTMLElement) : 'body';
+  export let target: string | HTMLElement = document ? (document.scrollingElement as HTMLElement) : 'body';
   export let showContent = false;
   export let calcLeft: null | CalcPosition = null;
   export let calcTop: null | CalcPosition = null;
@@ -22,13 +21,13 @@
   let targetElement: Writable<HTMLElement> = writable();
 
   const updateTargetElement = (target: string | HTMLElement): void => {
-    if (browser && typeof target === 'string') {
+    if (document && typeof target === 'string') {
       const query = document.querySelector<HTMLElement>(target);
       if (!query) {
         throw new Error(`Could not find target element: ${target}`);
       }
       $targetElement = query;
-    } else if (browser && target instanceof HTMLElement) {
+    } else if (document && target instanceof HTMLElement) {
       $targetElement = target;
     }
   };
