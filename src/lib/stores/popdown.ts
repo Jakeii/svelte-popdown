@@ -63,13 +63,13 @@ export const createContentTransformStyleStore = (
         };
 
         if (calcLeft) {
-          translateX = '' + calcLeft(triggerLeft);
+          translateX = String(calcLeft(triggerLeft));
         } else {
           translateX = calcTranslateX(position, triggerRight, triggerLeft, offsetLeft, triggerWidth);
         }
 
         if (calcTop) {
-          translateY = '' + calcTop(triggerLeft);
+          translateY = String(calcTop(triggerLeft));
         } else {
           translateY = calcTranslateY(position, triggerTop, offsetTop, triggerBottom, triggerHeight);
         }
