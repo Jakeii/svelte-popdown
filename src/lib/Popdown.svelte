@@ -3,7 +3,7 @@
   import { portal } from 'svelte-portal';
   import { type Writable, writable } from 'svelte/store';
 
-  const isBrowser = 'document' in global && 'querySelector' in document;
+  const isBrowser = 'document' in globalThis && 'querySelector' in document;
 
   export let contentClass = '';
   export let position = 'outer-bottom inner-left';
@@ -11,6 +11,7 @@
   export let showContent = false;
   export let calcLeft: null | CalcPosition = null;
   export let calcTop: null | CalcPosition = null;
+  export let zIndex = null;
 
   let trigger: Writable<HTMLElement> = writable();
   let windowSize: Writable<number[]> = writable();
@@ -53,7 +54,13 @@
 </div>
 
 {#if target && showContent}
-  <div class="content {contentClass}" bind:this={$content} style:transform={$contentTransformStyle} use:portal={target}>
+  <div
+    class="content {contentClass}"
+    bind:this={$content}
+    style:transform={$contentTransformStyle}
+    style:zIndex
+    use:portal={target}
+  >
     <slot name="content" />
   </div>
 {/if}

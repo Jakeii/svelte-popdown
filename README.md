@@ -18,6 +18,8 @@ Popover options:
 - `showContent` show the content slot, default is `false`
 - `calcX` optional - provide your own logic to calculate the X translation
 - `calcY` optional - provide your own logic to calculate the Y translation
+- `zIndex` optional - z-index for the content element, default is empty
+
 
 ## Examples
 
@@ -57,21 +59,14 @@ Popover options:
 Once you've created a project and installed dependencies with `yarn`, start a development server:
 
 ```bash
-npm run dev
+pnpm run dev
 
 # or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm run dev -- --open
 ```
-
-```
-
-```
-
-````
 
 ## Building
 
 ```bash
-npm run package
+pnpm run package
 ```
-````
