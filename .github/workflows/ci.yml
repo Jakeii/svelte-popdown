@@ -19,6 +19,9 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      - name: Build
+        run: pnpm build
+
       - name: Lint
         run: pnpm lint
 
@@ -27,9 +30,6 @@ jobs:
 
       - name: Package module
         run: pnpm package
-
-      - name: Build
-        run: pnpm build
 
       - name: Release
         run: pnpm semantic-release
