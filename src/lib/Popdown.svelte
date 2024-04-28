@@ -3,7 +3,7 @@
   import { portal } from 'svelte-portal';
   import { type Writable, writable } from 'svelte/store';
 
-  const isBrowser = !import.meta.env.SSR;
+  const isBrowser = 'document' in global && 'querySelector' in document;
 
   export let contentClass = '';
   export let position = 'outer-bottom inner-left';
