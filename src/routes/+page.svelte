@@ -23,7 +23,7 @@
       >
     </svelte:fragment>
     <svelte:fragment slot="content">
-      <div class="content" transition:fade>content</div>
+      <div class="content" transition:fade|global>content</div>
     </svelte:fragment>
   </Popdown>
 </div>
@@ -39,7 +39,7 @@
     hover me
   </button>
   <svelte:fragment slot="content">
-    <div class="content" transition:fade>content</div>
+    <div class="content" transition:fade|global>content</div>
   </svelte:fragment>
 </Popdown>
 <h2>Positioning:</h2>
