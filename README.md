@@ -24,41 +24,31 @@ Popover options:
 #### Content
 
 ```html
-  <script>
-    import Popdown, { onClickOutside } from 'svelte-popdown';
-    let clickContentVisible = false;
-
-  </script>
-  <Popdown position="below middle" showContent={clickContentVisible}>
-    <button
-      slot="trigger"
-      on:click={() => (clickContentVisible = !clickContentVisible)}
-      use:onClickOutside={() => (clickContentVisible = false)}
-    >
-      click me
-    </button>
-    <div class="content" slot="content" transition:fade>content</div>
-  </Popdown>
+<script>
+  import Popdown, { onClickOutside } from 'svelte-popdown';
+  let clickContentVisible = false;
+</script>
+<Popdown position="below middle" showContent="{clickContentVisible}">
+  <button slot="trigger" on:click="{()" ="">
+    (clickContentVisible = !clickContentVisible)} use:onClickOutside={() => (clickContentVisible = false)} > click me
+  </button>
+  <div class="content" slot="content" transition:fade>content</div>
+</Popdown>
 ```
 
 #### Popover
 
 ```html
-  <script>
-    import Popdown from 'svelte-popdown';
-	let hoverContentVisible = false;
-  </script>
-  <Popdown position="outer-right middle" showContent={hoverContentVisible}>
-	<button
-		on:mouseover={() => (hoverContentVisible = true)}
-		on:focus={() => (hoverContentVisible = true)}
-		on:mouseout={() => (hoverContentVisible = false)}
-		on:blur={() => (hoverContentVisible = false)}
-		slot="trigger"
-	>
-		hover me
-	</button>
-	<div class="content" slot="content" transition:fade>content</div>
+<script>
+  import Popdown from 'svelte-popdown';
+  let hoverContentVisible = false;
+</script>
+<Popdown position="outer-right middle" showContent="{hoverContentVisible}">
+  <button on:mouseover="{()" ="">
+    (hoverContentVisible = true)} on:focus={() => (hoverContentVisible = true)} on:mouseout={() => (hoverContentVisible
+    = false)} on:blur={() => (hoverContentVisible = false)} slot="trigger" > hover me
+  </button>
+  <div class="content" slot="content" transition:fade>content</div>
 </Popdown>
 ```
 
