@@ -11,7 +11,7 @@
   export let showContent = false;
   export let calcLeft: null | CalcPosition = null;
   export let calcTop: null | CalcPosition = null;
-  export let zIndex = null;
+  export let zIndex: null | number = null;
 
   let trigger: Writable<HTMLElement> = writable();
   let windowSize: Writable<number[]> = writable();
