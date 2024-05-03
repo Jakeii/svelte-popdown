@@ -20,7 +20,6 @@ Popover options:
 - `calcY` optional - provide your own logic to calculate the Y translation
 - `zIndex` optional - z-index for the content element, default is empty
 
-
 ## Examples
 
 #### Content
