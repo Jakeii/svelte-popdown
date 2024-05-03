@@ -58,7 +58,7 @@
     class="content {contentClass}"
     bind:this={$content}
     style:transform={$contentTransformStyle}
-    style:z-index={zIndex}
+    style:--z-index={zIndex}
     use:portal={target}
   >
     <slot name="content" />
@@ -70,5 +70,6 @@
     position: absolute;
     top: 0;
     left: 0;
+    z-index: var(--z-index, 100);
   }
 </style>
