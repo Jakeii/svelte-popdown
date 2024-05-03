@@ -3,7 +3,7 @@
   import { portal } from 'svelte-portal';
   import { type Writable, writable } from 'svelte/store';
 
-  const isBrowser = 'document' in globalThis && 'querySelector' in document;
+  const isBrowser = typeof document !== 'undefined';
 
   export let contentClass = '';
   export let position = 'outer-bottom inner-left';
@@ -58,7 +58,7 @@
     class="content {contentClass}"
     bind:this={$content}
     style:transform={$contentTransformStyle}
-    style:zIndex
+    style:z-index={zIndex}
     use:portal={target}
   >
     <slot name="content" />
