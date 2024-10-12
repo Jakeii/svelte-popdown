@@ -1,8 +1,8 @@
-const createListener = (node: HTMLElement, cb: () => void) => (e: MouseEvent) => {
+const createListener = (node: HTMLElement, cb: (e: MouseEvent) => unknown) => (e: MouseEvent) => {
   if (node.contains(e.target as Node)) {
     return;
   }
-  cb();
+  cb(e);
 };
 
 const onClickOutside = (node: HTMLElement, cb: () => void) => {
