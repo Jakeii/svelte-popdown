@@ -4,6 +4,7 @@ import { calcTranslateX, calcTranslateY } from '../util/popdown-translate';
 export type CalcPosition = (triggerPosition: number) => number;
 
 export const createContentTransformStyleStore = (
+  showContent: Readable<boolean>,
   windowSize: Readable<number[]>,
   scrollParent: Readable<HTMLElement>,
   trigger: Writable<HTMLElement>,
@@ -42,41 +43,39 @@ export const createContentTransformStyleStore = (
   );
 
   return derived(
-    [windowSize, trigger, ancestorOffset],
+    [showContent, windowSize, trigger, ancestorOffset],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ([_windowSize, $trigger, $ancestorOffset]) => {
+    ([$showContent, _windowSize, $trigger, $ancestorOffset]) => {
+      if (!$trigger || !$showContent) return '';
       let translateX = '';
       let translateY = '';
-      if ($trigger) {
-        const {
-          left: triggerLeft,
-          right: triggerRight,
-          top: triggerTop,
-          bottom: triggerBottom,
-          width: triggerWidth,
-          height: triggerHeight,
-        } = $trigger.getBoundingClientRect();
+      const {
+        left: triggerLeft,
+        right: triggerRight,
+        top: triggerTop,
+        bottom: triggerBottom,
+        width: triggerWidth,
+        height: triggerHeight,
+      } = $trigger.getBoundingClientRect();
 
-        const { left: offsetLeft, top: offsetTop } = $ancestorOffset || {
-          left: 0,
-          top: 0,
-        };
+      const { left: offsetLeft, top: offsetTop } = $ancestorOffset || {
+        left: 0,
+        top: 0,
+      };
 
-        if (calcLeft) {
-          translateX = String(calcLeft(triggerLeft));
-        } else {
-          translateX = calcTranslateX(position, triggerRight, triggerLeft, offsetLeft, triggerWidth);
-        }
-
-        if (calcTop) {
-          translateY = String(calcTop(triggerLeft));
-        } else {
-          translateY = calcTranslateY(position, triggerTop, offsetTop, triggerBottom, triggerHeight);
-        }
-
-        return `translate(${translateX}, ${translateY})`;
+      if (calcLeft) {
+        translateX = String(calcLeft(triggerLeft));
+      } else {
+        translateX = calcTranslateX(position, triggerRight, triggerLeft, offsetLeft, triggerWidth);
       }
-      return '';
+
+      if (calcTop) {
+        translateY = String(calcTop(triggerLeft));
+      } else {
+        translateY = calcTranslateY(position, triggerTop, offsetTop, triggerBottom, triggerHeight);
+      }
+
+      return `translate(${translateX}, ${translateY})`;
     },
   );
 };

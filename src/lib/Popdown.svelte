@@ -13,15 +13,18 @@
   export let calcTop: null | CalcPosition = null;
   export let zIndex: null | number = null;
 
-  let trigger: Writable<HTMLElement> = writable();
-  let windowSize: Writable<number[]> = writable();
-  let content: Writable<HTMLElement> = writable();
+  const trigger: Writable<HTMLElement> = writable();
+  const windowSize: Writable<number[]> = writable();
+  const content: Writable<HTMLElement> = writable();
+  const displayContent: Writable<boolean> = writable(showContent);
+
+  $: displayContent.set(showContent);
 
   const bindTrigger = (el: HTMLElement) => {
     $trigger = el.firstChild instanceof HTMLElement ? el.firstChild : el;
   };
 
-  let targetElement: Writable<HTMLElement> = writable();
+  const targetElement: Writable<HTMLElement> = writable();
 
   const updateTargetElement = (target: string | HTMLElement): void => {
     if (isBrowser && typeof target === 'string') {
@@ -38,6 +41,7 @@
   $: updateTargetElement(target);
 
   const contentTransformStyle = createContentTransformStyleStore(
+    displayContent,
     windowSize,
     targetElement,
     trigger,
