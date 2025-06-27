@@ -29,6 +29,7 @@ export const createContentTransformStyleStore = (
         });
       };
       if ($scrollParent) {
+        onScroll.call($scrollParent);
         $scrollParent.addEventListener('scroll', onScroll);
       } else {
         scrollParent.subscribe(($scrollParent) => {
