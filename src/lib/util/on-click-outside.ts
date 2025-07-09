@@ -5,12 +5,12 @@ const createListener = (node: HTMLElement, cb: (e: MouseEvent) => unknown) => (e
   cb(e);
 };
 
-const onClickOutside = (node: HTMLElement, cb: () => void) => {
+const onClickOutside = (node: HTMLElement, cb: (e: MouseEvent) => unknown) => {
   const listener = createListener(node, cb);
   window.addEventListener('click', listener);
 
   return {
-    update: (cb: () => void) => {
+    update: (cb: (e: MouseEvent) => unknown) => {
       window.removeEventListener('click', listener);
       const newListener = createListener(node, cb);
       window.addEventListener('click', newListener);
